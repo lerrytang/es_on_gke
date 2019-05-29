@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package es_on_gke;
+
+// RPC request for policy evaluation
+message RolloutRequest {
+
+    // Index of the rollout
+    int32 rollout_index = 1;
+
+    // Random seed from the master
+    int32 env_seed = 2;
+
+    // The weights of the neural network policy
+    repeated double policy_weights = 3;
+
+    // Whether this request is evaluation
+    bool evaluate = 4;
+}
+
+// RPC response for policy evaluation
+message RolloutResponse {
+
+    // Index of the rollout
+    int32 rollout_index = 1;
+
+    // The reward collected in a rollout
+    double rollout_reward = 2;
+}
+
+// RPC services for CMA
+service Rollout {
+
+  // The RPC service for policy evaluation
+  rpc RolloutWithParameter(RolloutRequest) returns (RolloutResponse) {}
+}

@@ -1,0 +1,33 @@
+import algorithm.pepg_solver
+import evaluation_service
+import learner
+import policies
+import utility
+
+
+# Env configs
+utility.load_env.env_package = "minitaur_gym_env"
+utility.load_env.env_name = "MinitaurBulletEnv"
+utility.load_env.render = False
+
+# Policy configs
+utility.create_policy.policy_type = @policies.MLP
+policies.MLP.layers = [64, 64]
+policies.MLP.activation = "tanh"
+
+# Worker configs
+evaluation_service.RolloutServicer.max_steps = 1000
+
+# Master configs
+learner.ESLearner.max_iters = 100000
+learner.ESLearner.eval_n_episodes = 100
+learner.ESLearner.eval_every_n_iters = 10
+learner.ESLearner.population_size = 256
+learner.ESLearner.target_reward = 13
+learner.ESLearner.n_repeats = 5
+learner.ESLearner.solver = @algorithm.pepg_solver.PEPGSolver
+
+# Solver configs
+algorithm.pepg_solver.PEPGSolver.seed = 0
+algorithm.pepg_solver.PEPGSolver.sigma_init = 0.1
+algorithm.pepg_solver.PEPGSolver.weight_decay = 0.01

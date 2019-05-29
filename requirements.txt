@@ -1,0 +1,12 @@
+gin-config==0.1.4
+cma==2.7.0
+numpy==1.16.3
+gym[box2d]==0.12.1
+protobuf==3.7.1
+grpcio==1.20.1
+grpcio-tools==1.20.1
+pybullet==2.4.9
+pandas==0.24.2
+seaborn==0.9.0
+moviepy==1.0.0
+transformations==2019.4.22

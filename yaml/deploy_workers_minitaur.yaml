@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minitaur-es-worker-pod
+spec:
+  selector:
+    matchLabels:
+      app: minitaur-es-worker-pod
+  replicas: 1000
+  template:
+    metadata:
+      labels:
+        app: minitaur-es-worker-pod
+    spec:
+      containers:
+      - name: minitaur-es-worker
+        image: gcr.io/${GCLOUD_PROJECT}/es-on-gke:1.0
+        resources:
+          requests:
+            memory: "1.5Gi"
+            cpu: "1.0"
+          limits:
+            memory: "2Gi"
+            cpu: "1.2"
+        ports:
+        - containerPort: 20000
+        command: [ "python3", "/app/es_worker.py", "--run-on-gke",
+                   "--config=/app/configs/MinitaurLocomotion.gin"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minitaur-es-worker-service
+spec:
+  selector:
+    app: minitaur-es-worker-pod
+  clusterIP: None
+  ports:
+  - name: grpc
+    port: 20000

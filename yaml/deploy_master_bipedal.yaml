@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bipedal-es-master-pod
+spec:
+  selector:
+    matchLabels:
+      app: bipedal-es-master-pod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bipedal-es-master-pod
+    spec:
+
+      volumes:
+      - name: shared-data
+        emptyDir: {}
+
+      containers:
+      - name: bipedal-es-master
+        image: gcr.io/${GCLOUD_PROJECT}/es-on-gke:1.0
+        volumeMounts:
+        - name: shared-data
+          mountPath: /var/log/es
+        command: ["/bin/sh", "-c"]
+        args: ["cp index.html /var/log/es/ && \
+                python3 /app/es_master.py \
+                --run-on-gke \
+                --config=/app/configs/BipedalWalkerHardcore.gin \
+                --server-addresses=bipedal-es-worker-service:20000 \
+                --logdir=/var/log/es/log"]
+
+      - name: nginx-container
+        image: nginx
+        volumeMounts:
+        - name: shared-data
+          mountPath: /usr/share/nginx/html
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bipedal-es-master-service
+spec:
+  selector:
+    app: bipedal-es-master-pod
+  ports:
+  - name: http
+    port: 80
+  type: LoadBalancer

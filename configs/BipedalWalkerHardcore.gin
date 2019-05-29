@@ -1,0 +1,33 @@
+import algorithm.cma_solver
+import evaluation_service
+import learner
+import policies
+import utility
+
+
+# Env configs
+utility.load_env.env_package = "NULL"
+utility.load_env.env_name = "BipedalWalkerHardcore-v2"
+utility.load_env.render = False
+
+# Policy configs
+utility.create_policy.policy_type = @policies.MLP
+policies.MLP.layers = [40, 40]
+policies.MLP.activation = "tanh"
+
+# Worker configs
+evaluation_service.RolloutServicer.max_steps = 2000
+
+# Master configs
+learner.ESLearner.max_iters = 100000
+learner.ESLearner.eval_n_episodes = 100
+learner.ESLearner.eval_every_n_iters = 20
+learner.ESLearner.population_size = 256
+learner.ESLearner.target_reward = 300
+learner.ESLearner.n_repeats = 16
+learner.ESLearner.solver = @algorithm.cma_solver.CMASolver
+
+# Solver configs
+algorithm.cma_solver.CMASolver.seed = 0
+algorithm.cma_solver.CMASolver.init_sigma = 0.1
+algorithm.cma_solver.CMASolver.l2_coefficient = 0.01
