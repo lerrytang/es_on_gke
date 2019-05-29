@@ -91,6 +91,8 @@ kubectl cp $POD_NAME:/var/log/es/log/best_model.npz $HOME/
 kubectl cp $POD_NAME:/var/log/es/log/model_1000.npz $HOME/
 # Download all test scores.
 kubectl cp $POD_NAME:/var/log/es/log/scores.csv $HOME/
+# Download everything (including models from all evaluation iterations).
+kubectl cp $POD_NAME:/var/log/es/log $HOME/es_log
 ```
 
 
@@ -108,14 +110,5 @@ python test.py --logdir={path-to-log-directory}
 
 ### Clean up
 
-When the tasks are done, you can download all the training logs and models:
-```bash
-# ssh into the container
-kubectl exec -it $POD_NAME /bin/bash
-# In the container, make a tar ball of logs and then exit
-tar -cvf log.tar /var/log/es && exit
-# Download the tar ball
-kubectl cp $POD_NAME:/app/log.tar $HOME/
-```
-
+When the tasks are done, you can download all the training logs and models for future analysis.  
 Finally, if you don't need to run any tasks, don't forget to [delete the cluster](https://cloud.google.com/dataproc/docs/guides/manage-cluster).
