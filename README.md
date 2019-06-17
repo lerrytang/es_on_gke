@@ -5,7 +5,7 @@
 Evolution Strategies (ES) performs iterative optimization with a large population of trials that are usually distributedly conducted.
 [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) (GKE) serves as a good platform for ES.  
 We hope the instructions and code here serves as a quickstart for researchers to run their ES experiments on GKE.
-Please refer to the blog [here] for more information about the repository.  
+Please refer to the blog [here](https://cloud.google.com/blog/products/ai-machine-learning/how-to-run-evolution-strategies-on-google-kubernetes-engine) for more information about the repository.  
 You are also strongly recommended to read this [blog](http://blog.otoro.net/2017/10/29/visual-evolution-strategies/) that provides excellent explanations if you want to know more about ES.
 
 
