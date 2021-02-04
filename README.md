@@ -9,8 +9,8 @@ Please refer to the blog [here](https://cloud.google.com/blog/products/ai-machin
 You are also strongly recommended to read this [blog](http://blog.otoro.net/2017/10/29/visual-evolution-strategies/) that provides excellent explanations if you want to know more about ES.
 
 
-![Learning time comparison in BipedalWalkerHardcore](https://storage.googleapis.com/gcp_blog/img/bipedal_time_comparison.png)
-![Learning time comparison in MinitaurLocomotion](https://storage.googleapis.com/gcp_blog/img/minitaur_time_comparison.png)
+![Learning time comparison in BipedalWalkerHardcore](imgs/img_bipedal_time_comparison.png)
+![Learning time comparison in MinitaurLocomotion](imgs/img_minitaur_time_comparison.png)
 
 ## How to use the code
 
@@ -64,7 +64,7 @@ sed "s/\${GCLOUD_PROJECT}/${GCLOUD_PROJECT}/g" yaml/deploy_master_bipedal.yaml >
 kubectl apply -f master.yaml
 ```
 After a while you should be able to see your pods started in GCP console:  
-![Pod started](https://storage.googleapis.com/gcp_blog/img/start_master_workers.png) 
+![Pod started](imgs/img_start_master_workers.png) 
 
 That's all! ES should be training in your specified environment on GKE now.
 
