@@ -1,6 +1,6 @@
 gin-config==0.1.4
 cma==2.7.0
-numpy==1.16.3
+numpy==1.22.0
 gym[box2d]==0.12.1
 protobuf==3.7.1
 grpcio==1.20.1
